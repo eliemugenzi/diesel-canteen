@@ -2,6 +2,7 @@ const asyncHandler = require("../../middleware/asyncHandler");
 const { User, Admin } = require("../../database/models");
 const jsonResponse = require("../../helpers/jsonResponse");
 const bcrypt = require("bcrypt");
+const { generateToken } = require("../../helpers/jwt");
 
 const login = asyncHandler(async (req, res) => {
   const { body } = req;
@@ -30,10 +31,24 @@ const login = asyncHandler(async (req, res) => {
       message: "Invalid credentials",
     });
   }
+
+  const userData = {
+    ..._user._doc,
+    password: undefined,
+  };
+
+  console.log({ userData });
+
+  const token = generateToken(userData);
+
+  console.log({ user: _user });
   return jsonResponse({
     res,
     status: 200,
-    data: _user,
+    data: {
+      ...userData,
+      token,
+    },
   });
 });
 
@@ -61,11 +76,19 @@ const signUp = asyncHandler(async (req, res) => {
 
   const user = await Model.create(payload);
 
+  const token = generateToken({
+    ...user._doc,
+    password: undefined,
+  });
+
   return jsonResponse({
     res,
     status: 201,
     message: "User has been created",
-    data: user,
+    data: {
+      ...user._doc,
+      token,
+    },
   });
 });
 
