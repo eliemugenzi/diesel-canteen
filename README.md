@@ -13,3 +13,5 @@
  MONGO_URL=
  JWT_SECRET_KEY=
 ```
+
+- Run `npm run create:locations` to setup locations in the database
