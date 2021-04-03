@@ -38,7 +38,6 @@ AdminSchema.pre("save", async function (next) {
   try {
     const admin = this;
 
-    console.log({ this: this });
     const password = bcrypt.hashSync(admin.password, 10);
     admin.password = password;
   } catch (error) {
