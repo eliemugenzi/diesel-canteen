@@ -14,6 +14,8 @@ const createLocations = async () => {
   await Location.create(secondLocation);
 };
 
-createLocations();
+createLocations().then(() => {
+  process.exit();
+});
 
 module.exports = createLocations;
