@@ -15,10 +15,13 @@
     "mongoose": "^5.12.3"
   },
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "nodemon": "^2.0.7"
   },
   "scripts": {
     "dev": "nodemon",
-    "create:locations": "node src/scripts/createLocations"
-  }
+    "create:locations": "node src/scripts/createLocations",
+    "start:dev": "concurrently \"npm run dev \" \"cd frontend && npm run dev\""
+  },
+  "repository": "git@github.com:eliemugenzi/diesel-canteen.git"
 }

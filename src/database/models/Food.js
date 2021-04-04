@@ -25,6 +25,13 @@ const FoodSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  location: {
+    type: Schema.Types.ObjectId,
+    ref: "Location",
+  },
+  image: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Food", FoodSchema);

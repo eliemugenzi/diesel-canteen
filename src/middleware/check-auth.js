@@ -4,13 +4,22 @@ const jwt = require("jsonwebtoken");
 
 const asyncHandler = require("./asyncHandler");
 const jsonResponse = require("../helpers/jsonResponse");
+const { User, Admin } = require("../database/models");
 
 const { JWT_SECRET_KEY = "" } = process.env;
 
 const checkAuth = asyncHandler(async (req, res, next) => {
   const { authorization = "" } = req.headers;
 
-  const token = authorization.splice(4);
+  if (!authorization) {
+    return jsonResponse({
+      res,
+      status: 401,
+      message: "Unauthorized access",
+    });
+  }
+
+  const token = authorization.slice(4);
   if (!token) {
     return jsonResponse({
       res,
@@ -19,7 +28,7 @@ const checkAuth = asyncHandler(async (req, res, next) => {
     });
   }
 
-  jwt.verify(token, JWT_SECRET_KEY, (error, decoded) => {
+  jwt.verify(token, JWT_SECRET_KEY, async (error, decoded) => {
     if (error || !decoded) {
       if (error.name === "TokenExpiredError") {
         return jsonResponse({
@@ -36,7 +45,20 @@ const checkAuth = asyncHandler(async (req, res, next) => {
       });
     }
 
-    req.user = decoded;
+    const isUser = await User.findById(decoded._id);
+    const isAdmin = await Admin.findById(decoded._id);
+
+    if (!(isUser || isAdmin)) {
+      return jsonResponse({
+        res,
+        status: 403,
+        message: "Forbidden access",
+      });
+    }
+
+    const _user = isUser || isAdmin;
+
+    req.currentUser = _user;
 
     return next();
   });
