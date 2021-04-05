@@ -14,3 +14,7 @@ export const GET_DRINKS_FAIL = "GET_DRINKS_FAIL";
 export const ADDING_FOOD = "ADDING_FOOD";
 export const ADDED_FOOD = "ADDED_FOOD";
 export const ADD_FOOD_FAIL = "ADD_FOOD_FAIL";
+
+export const GETTING_SINGLE_FOOD = "GETTING_SINGLE_FOOD";
+export const GOT_SINGLE_FOOD = "GOT_SINGLE_FOOD";
+export const LOST_SINGLE_FOOD = "LOST_SINGLE_FOOD";

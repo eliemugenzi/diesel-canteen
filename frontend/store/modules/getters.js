@@ -13,5 +13,8 @@ export default {
   drinkList: state => state.drinks.data,
   addingFood: state => state.newItem.loading,
   addFoodError: state => state.newItem.error,
-  addedFood: state => state.newItem.message
+  addedFood: state => state.newItem.message,
+  fetchingFood: state => state.singleFood.loading,
+  singleFood: state => state.singleFood.data,
+  food404: state => state.singleFood.error
 };

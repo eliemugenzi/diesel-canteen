@@ -18,12 +18,15 @@
       <a-icon type="loading" v-if="gettingFood"></a-icon>
       <a-row v-else :gutter="16">
         <a-col v-for="food in foodList" :key="food._id" :span="4">
-          <food
-            :name="food.name"
-            :image="food.image"
-            :price="food.price"
-            :quantity="food.quantity"
-          />
+          <nuxt-link :to="`/food/${food._id}`">
+            <food
+              :name="food.name"
+              :image="food.image"
+              :price="food.price"
+              :quantity="food.quantity"
+              @click="selected(food)"
+            />
+          </nuxt-link>
         </a-col>
       </a-row>
     </div>
@@ -39,6 +42,7 @@
             :image="food.image"
             :price="food.price"
             :quantity="food.quantity"
+            @click="selected(food)"
           />
         </a-col>
       </a-row>
@@ -48,7 +52,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Food from "../components/Food";
+import Food from "../../components/Food";
 export default {
   computed: {
     ...mapGetters([
@@ -65,7 +69,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getFoods"])
+    ...mapActions(["getFoods"]),
+    selected(food) {
+      this.$router.push(`/food/${food._id}`);
+    }
   },
   mounted() {
     this.getFoods({

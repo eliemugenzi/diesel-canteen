@@ -6,7 +6,7 @@
   "author": "Elie Mugenzi, MBE",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "celebrate": "^14.0.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
