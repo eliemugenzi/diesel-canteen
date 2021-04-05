@@ -31,5 +31,10 @@ export default {
     loading: false,
     error: null,
     message: null
+  },
+  singleFood: {
+    data: {},
+    loading: false,
+    error: null
   }
 };

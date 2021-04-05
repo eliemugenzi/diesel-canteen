@@ -13,7 +13,10 @@ import {
   SIGNING_UP,
   SIGNUP_FAILED,
   ADDING_FOOD,
-  ADD_FOOD_FAIL
+  ADD_FOOD_FAIL,
+  GETTING_SINGLE_FOOD,
+  GOT_SINGLE_FOOD,
+  LOST_SINGLE_FOOD
 } from "./mutation-types";
 
 export default {
@@ -153,6 +156,30 @@ export default {
       data: {},
       error: payload,
       message: null
+    };
+  },
+  [GETTING_SINGLE_FOOD]: state => {
+    state.singleFood = {
+      ...state.singleFood,
+      loading: true,
+      data: {},
+      error: null
+    };
+  },
+  [GOT_SINGLE_FOOD]: (state, payload) => {
+    state.singleFood = {
+      ...state.singleFood,
+      loading: false,
+      data: payload,
+      error: null
+    };
+  },
+  [LOST_SINGLE_FOOD]: (state, payload) => {
+    state.singleFood = {
+      ...state.singleFood,
+      loading: false,
+      data: {},
+      error: payload
     };
   }
 };

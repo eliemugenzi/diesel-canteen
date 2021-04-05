@@ -1,7 +1,7 @@
 const asyncHandler = require("../../middleware/asyncHandler");
 const { User, Admin } = require("../../database/models");
 const jsonResponse = require("../../helpers/jsonResponse");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { generateToken } = require("../../helpers/jwt");
 
 const login = asyncHandler(async (req, res) => {

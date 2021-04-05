@@ -4,6 +4,7 @@ import {
   ADD_FOOD_FAIL,
   GETTING_DRINKS,
   GETTING_FOOD,
+  GETTING_SINGLE_FOOD,
   GET_DRINKS_FAIL,
   GET_FOOD_FAIL,
   GOT_DRINKS,
@@ -11,9 +12,11 @@ import {
   LOGGED_IN,
   LOGGING_IN,
   LOGIN_FAILED,
+  LOST_SINGLE_FOOD,
   SIGNED_UP,
   SIGNING_UP,
-  SIGNUP_FAILED
+  SIGNUP_FAILED,
+  GOT_SINGLE_FOOD
 } from "./mutation-types";
 import axios from "../../config/axios";
 export default {
@@ -72,6 +75,17 @@ export default {
       context?.$router?.push("/food");
     } catch (error) {
       commit(ADD_FOOD_FAIL, error?.response?.data?.message);
+    }
+  },
+  async getSingleFood({ commit }, { id }) {
+    commit(GETTING_SINGLE_FOOD);
+
+    try {
+      const { data: response } = await axios.get(`/food/${id}`);
+      commit(GOT_SINGLE_FOOD, response?.data);
+    } catch (error) {
+      console.log({ error });
+      commit(LOST_SINGLE_FOOD, error?.response?.data?.message);
     }
   }
 };

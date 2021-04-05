@@ -64,7 +64,31 @@ const getFood = asyncHandler(async (req, res) => {
   });
 });
 
+const getSingleFood = asyncHandler(async (req, res) => {
+  const { params } = req;
+
+  const foundFood = await Food.findById(params.id);
+  const foundDrink = await Drink.findById(params.id);
+
+  if (!(foundFood || foundDrink)) {
+    return jsonResponse({
+      res,
+      status: 404,
+      message: "Food not found",
+    });
+  }
+
+  const _food = foundFood || foundDrink;
+
+  return jsonResponse({
+    res,
+    status: 200,
+    data: _food,
+  });
+});
+
 module.exports = {
   addFood,
   getFood,
+  getSingleFood,
 };

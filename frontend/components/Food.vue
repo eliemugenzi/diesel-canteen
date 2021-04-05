@@ -4,7 +4,7 @@
       <img :src="image" slot="cover" :alt="name" :height="200" />
       <a-card-meta :title="name">
         <template slot="description">
-          <h4>{{ itemPrice }} Rwf</h4>
+          <h4 class="price">{{ itemPrice }} Rwf</h4>
           <p>{{ quantity }} X</p>
         </template>
       </a-card-meta>
@@ -39,4 +39,8 @@ export default {
   }
 };
 </script>
-<style></style>
+<style scoped>
+.price {
+  color: #0a4d98;
+}
+</style>

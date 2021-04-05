@@ -18,7 +18,7 @@
       </a-dropdown>
       <div class="menu-list" v-else>
         <a-button @click="$router.push('/')">Login</a-button>
-        <a-button type="primary" @click="$router.push('/signup')"
+        <a-button type="primary" @click="$router.push('/signup')" class="button"
           >Sign Up</a-button
         >
       </div>
@@ -55,5 +55,9 @@ main {
 
 .logo {
   box-sizing: border-box;
+}
+
+.button {
+  background: #0a4d98;
 }
 </style>
