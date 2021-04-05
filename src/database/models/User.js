@@ -21,12 +21,11 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre("save", async (next) => {
+UserSchema.pre("save", async function (next) {
   try {
     const user = this;
     const password = bcrypt.hashSync(user.password, 10);
     user.password = password;
-    await user.save();
     next();
   } catch (error) {
     next(error);

@@ -37,8 +37,6 @@ const login = asyncHandler(async (req, res) => {
     password: undefined,
   };
 
-  console.log({ userData });
-
   const token = generateToken(userData);
 
   console.log({ user: _user });
@@ -65,7 +63,7 @@ const signUp = asyncHandler(async (req, res) => {
     return jsonResponse({
       res,
       status: 409,
-      message: "User already exist!",
+      message: "Login ID is already taken!",
     });
   }
 

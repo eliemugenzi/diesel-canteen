@@ -12,6 +12,13 @@ const newFoodRule = celebrate({
   }),
 });
 
+const getFoodRule = celebrate({
+  query: Joi.object().keys({
+    type: Joi.string().valid("food", "drinks").required(),
+  }),
+});
+
 module.exports = {
   newFoodRule,
+  getFoodRule,
 };
