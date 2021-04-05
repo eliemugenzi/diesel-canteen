@@ -70,11 +70,9 @@ export default {
   methods: {
     ...mapActions(["signUp"]),
     handleChange(value) {
-      console.log({ value });
       this.state.type = value.key;
     },
     handleSubmit() {
-      console.log("SUBMIT");
       if (this.state.password !== this.state.confirm_password) {
         this.error = "Password must match!";
 

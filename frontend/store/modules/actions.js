@@ -22,7 +22,6 @@ export default {
 
     try {
       const { data: response } = await axios.post("/auth/login", data);
-      console.log({ response });
       commit(LOGGED_IN, response?.data);
       localStorage.setItem("JWT_TOKEN", response?.data?.token);
 
@@ -30,7 +29,6 @@ export default {
 
       context.$router.push("/food");
     } catch (error) {
-      console.log("Error", error);
       commit(LOGIN_FAILED, error?.response?.data?.message);
     }
   },
@@ -40,13 +38,9 @@ export default {
     try {
       const { data: response } = await axios.post("/auth/signup", data);
 
-      console.log("Data", response);
-
       localStorage.setItem("JWT_TOKEN", response?.data?.token);
       axios.defaults.headers.Authorization = `JWT ${response?.data?.token}`;
       commit(SIGNED_UP, response);
-
-      console.log({ context });
 
       context.$router.push("/food");
     } catch (error) {

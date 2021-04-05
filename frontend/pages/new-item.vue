@@ -111,7 +111,6 @@ export default {
     });
 
     const handleChange = async ({ fileList: files, file }) => {
-      console.log({ files, file });
       fileList.value = files;
 
       const storageRef = firebase.storage().ref();
@@ -142,8 +141,6 @@ export default {
     };
 
     const handleSubmit = () => {
-      console.log({ state });
-
       store.dispatch("addFood", {
         data: state,
         context: ctx
@@ -152,7 +149,6 @@ export default {
 
     const addingFood = computed(() => store.getters.addingFood);
     const addFoodError = computed(() => store.getters.addFoodError);
-    const isLoggedIn = computed(() => store.getters.isLoggedIn);
     const addedFoodMsg = computed(() => store.getters.addedFood);
 
     return {

@@ -39,7 +39,6 @@ const login = asyncHandler(async (req, res) => {
 
   const token = generateToken(userData);
 
-  console.log({ user: _user });
   return jsonResponse({
     res,
     status: 200,

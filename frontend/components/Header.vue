@@ -32,9 +32,6 @@ export default {
   name: "Header",
   computed: {
     ...mapGetters(["isLoggedIn", "currentUser"])
-  },
-  mounted() {
-    console.log("Mounted", this.currentUser);
   }
 };
 </script>
