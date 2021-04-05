@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "diesel-frontend",
+    title: "Diesel Canteen Web",
     htmlAttrs: {
       lang: "en"
     },
@@ -23,7 +23,7 @@ export default {
   css: ["ant-design-vue/dist/antd.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/antd-ui", "@/plugins/composition-api"],
+  plugins: ["@/plugins/antd-ui", "@/plugins/composition-api", "@/plugins/vuex"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

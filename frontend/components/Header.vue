@@ -1,12 +1,14 @@
 <template>
   <main>
     <div class="logo">
-      <img src="../assets/diesel-logo.png" alt="Diesel" class="logo" />
+      <nuxt-link :to="`${isLoggedIn ? '/food' : '/'}`">
+        <img src="../assets/diesel-logo.png" alt="Diesel" class="logo" />
+      </nuxt-link>
     </div>
     <div class="menu">
-      <a-dropdown class="dropdown">
+      <a-dropdown class="dropdown" v-if="isLoggedIn">
         <a @click="e => e.preventDefault()" class="ant-dropdown-link"
-          >20001 <a-icon type="down"></a-icon>
+          >{{ currentUser.login_id }} <a-icon type="down"></a-icon>
         </a>
         <a-menu slot="overlay">
           <a-menu-item>
@@ -14,13 +16,26 @@
           </a-menu-item>
         </a-menu>
       </a-dropdown>
+      <div class="menu-list" v-else>
+        <a-button @click="$router.push('/')">Login</a-button>
+        <a-button type="primary" @click="$router.push('/signup')"
+          >Sign Up</a-button
+        >
+      </div>
     </div>
   </main>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    ...mapGetters(["isLoggedIn", "currentUser"])
+  },
+  mounted() {
+    console.log("Mounted", this.currentUser);
+  }
 };
 </script>
 

@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv/config");
 const app = express();
+const cors = require("cors");
 const chalk = require("chalk");
 require("./src/database/config");
 const joiErrors = require("./src/middleware/joiErrors");
@@ -13,6 +14,7 @@ const { PORT = 9000 } = process.env;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use("/api", api);
 

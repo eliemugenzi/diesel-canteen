@@ -2,20 +2,39 @@
   <main class="wrapper">
     <a-card class="container" hoverable>
       <h2 class="title">Login</h2>
+      <a-alert
+        v-if="!!loginError"
+        type="error"
+        closable
+        :description="loginError"
+        class="error-message"
+      ></a-alert>
       <a-form
         class="form"
         :label-col="{ span: 5 }"
         :wrapper-col="{ span: 12 }"
         :form="form"
+        @submit.prevent="handleSubmit"
       >
         <a-form-item label="Login ID" class="input">
-          <a-input></a-input>
+          <a-input
+            v-model="state.login_id"
+            v-decorator="[
+              'login_id',
+              { rules: [{ required: true, message: 'Login ID is required' }] }
+            ]"
+          ></a-input>
         </a-form-item>
         <a-form-item label="Password" class="input">
-          <a-input type="password"></a-input>
+          <a-input-password v-model="state.password"></a-input-password>
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-          <a-button type="primary" html-type="submit" block class="button"
+          <a-button
+            type="primary"
+            html-type="submit"
+            block
+            class="button"
+            :loading="loggingIn"
             >Login</a-button
           >
         </a-form-item>
@@ -25,26 +44,31 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: function() {
     return {
-      form: this.$form.createForm(this, { name: "coordinated" })
+      form: this.$form.createForm(this, { name: "coordinated" }),
+      state: {
+        login_id: null,
+        password: null
+      }
     };
+  },
+  computed: {
+    ...mapGetters(["loggingIn", "loginData", "loginError"])
+  },
+  methods: {
+    ...mapActions(["login"]),
+    handleSubmit() {
+      const payload = this.state;
+      this.login({ data: payload, context: this });
+    }
   }
 };
 </script>
 
 <style>
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
 .subtitle {
   font-weight: 300;
   font-size: 42px;
@@ -73,5 +97,9 @@ export default {
 .title {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.error-message {
+  margin: 20px auto;
 }
 </style>

@@ -11,7 +11,7 @@ const addFood = asyncHandler(async (req, res) => {
     return jsonResponse({
       res,
       status: 403,
-      message: "Unauthorized access",
+      message: "Only admins can add items",
     });
   }
 
@@ -46,6 +46,25 @@ const addFood = asyncHandler(async (req, res) => {
   });
 });
 
+const getFood = asyncHandler(async (req, res) => {
+  const { query } = req;
+
+  const Model = query.type === "food" ? Food : Drink;
+
+  const foods = await Model.find({
+    quantity: {
+      $gte: 1,
+    },
+  });
+
+  return jsonResponse({
+    res,
+    status: 200,
+    data: foods,
+  });
+});
+
 module.exports = {
   addFood,
+  getFood,
 };
