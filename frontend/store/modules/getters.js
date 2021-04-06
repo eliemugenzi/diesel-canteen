@@ -16,5 +16,8 @@ export default {
   addedFood: state => state.newItem.message,
   fetchingFood: state => state.singleFood.loading,
   singleFood: state => state.singleFood.data,
-  food404: state => state.singleFood.error
+  food404: state => state.singleFood.error,
+  placing: state => state.placeOrder.loading,
+  placed: state => state.placeOrder.message,
+  placeFailed: state => state.placeOrder.error
 };
