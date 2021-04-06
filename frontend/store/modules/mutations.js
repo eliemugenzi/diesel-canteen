@@ -16,7 +16,10 @@ import {
   ADD_FOOD_FAIL,
   GETTING_SINGLE_FOOD,
   GOT_SINGLE_FOOD,
-  LOST_SINGLE_FOOD
+  LOST_SINGLE_FOOD,
+  PLACING_ORDER,
+  PLACED_ORDER,
+  PLACE_ORDER_FAIL
 } from "./mutation-types";
 
 export default {
@@ -179,6 +182,33 @@ export default {
       ...state.singleFood,
       loading: false,
       data: {},
+      error: payload
+    };
+  },
+  [PLACING_ORDER]: state => {
+    state.placeOrder = {
+      ...state.placeOrder,
+      loading: true,
+      message: null,
+      error: null,
+      data: {}
+    };
+  },
+  [PLACED_ORDER]: (state, payload) => {
+    state.placeOrder = {
+      ...state.placeOrder,
+      loading: false,
+      data: payload,
+      error: null,
+      message: "An order has been placed"
+    };
+  },
+  [PLACE_ORDER_FAIL]: (state, payload) => {
+    state.placeOrder = {
+      ...state.placeOrder,
+      loading: false,
+      data: {},
+      message: null,
       error: payload
     };
   }

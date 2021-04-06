@@ -16,9 +16,13 @@ import {
   SIGNED_UP,
   SIGNING_UP,
   SIGNUP_FAILED,
-  GOT_SINGLE_FOOD
+  GOT_SINGLE_FOOD,
+  PLACING_ORDER,
+  PLACE_ORDER_FAIL,
+  PLACED_ORDER
 } from "./mutation-types";
 import axios from "../../config/axios";
+import { placeOrder } from "../../../src/resources/food/food.controller";
 export default {
   async login({ commit }, { data, context }) {
     commit(LOGGING_IN);
@@ -86,6 +90,17 @@ export default {
     } catch (error) {
       console.log({ error });
       commit(LOST_SINGLE_FOOD, error?.response?.data?.message);
+    }
+  },
+  async placeOrder({ commit }, { data, id }) {
+    commit(PLACING_ORDER);
+
+    try {
+      const { data: response } = await axios.post(`/food/${id}/order`, data);
+
+      commit(PLACED_ORDER, response);
+    } catch (error) {
+      commit(PLACE_ORDER_FAIL, error?.response?.data?.message);
     }
   }
 };

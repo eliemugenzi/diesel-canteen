@@ -18,7 +18,14 @@ const getFoodRule = celebrate({
   }),
 });
 
+const orderFoodRule = celebrate({
+  body: Joi.object().keys({
+    quantity: Joi.number().integer().min(1).required(),
+  }),
+});
+
 module.exports = {
   newFoodRule,
   getFoodRule,
+  orderFoodRule,
 };

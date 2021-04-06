@@ -87,8 +87,44 @@ const getSingleFood = asyncHandler(async (req, res) => {
   });
 });
 
+const placeOrder = asyncHandler(async (req, res) => {
+  const { params, body } = req;
+
+  const foundFood = await Food.findById(params.id);
+  const foundDrink = await Drink.findById(params.id);
+
+  const _food = foundFood || foundDrink;
+
+  if (!_food) {
+    return jsonResponse({
+      res,
+      status: 404,
+      message: "Food not found",
+    });
+  }
+
+  if (body.quantity > _food.quantity) {
+    return jsonResponse({
+      res,
+      status: 403,
+      message: `We only have ${_food.quantity} left in stock`,
+    });
+  }
+
+  await _food.update({
+    quantity: Number(_food.quantity) - Number(body.quantity),
+  });
+
+  return jsonResponse({
+    res,
+    status: 200,
+    message: "Order is placed",
+  });
+});
+
 module.exports = {
   addFood,
   getFood,
   getSingleFood,
+  placeOrder,
 };

@@ -36,5 +36,11 @@ export default {
     data: {},
     loading: false,
     error: null
+  },
+  placeOrder: {
+    data: {},
+    error: null,
+    message: null,
+    loading: false
   }
 };
