@@ -1,5 +1,5 @@
 const asyncHandler = require("../../middleware/asyncHandler");
-const { User, Admin } = require("../../database/models");
+const { User, Admin, Token } = require("../../database/models");
 const jsonResponse = require("../../helpers/jsonResponse");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../../helpers/jwt");
@@ -39,6 +39,11 @@ const login = asyncHandler(async (req, res) => {
 
   const token = generateToken(userData);
 
+  await Token.create({
+    user: _user,
+    token,
+  });
+
   return jsonResponse({
     res,
     status: 200,
@@ -76,6 +81,11 @@ const signUp = asyncHandler(async (req, res) => {
   const token = generateToken({
     ...user._doc,
     password: undefined,
+  });
+
+  await Token.create({
+    token,
+    user,
   });
 
   return jsonResponse({
