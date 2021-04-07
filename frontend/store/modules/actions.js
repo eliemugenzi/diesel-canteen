@@ -19,7 +19,8 @@ import {
   GOT_SINGLE_FOOD,
   PLACING_ORDER,
   PLACE_ORDER_FAIL,
-  PLACED_ORDER
+  PLACED_ORDER,
+  LOG_OUT
 } from "./mutation-types";
 import axios from "../../config/axios";
 import { placeOrder } from "../../../src/resources/food/food.controller";
@@ -102,5 +103,8 @@ export default {
     } catch (error) {
       commit(PLACE_ORDER_FAIL, error?.response?.data?.message);
     }
+  },
+  logOut({ commit }) {
+    commit(LOG_OUT);
   }
 };

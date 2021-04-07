@@ -8,7 +8,7 @@ export default {
     data: {},
     error: null,
     loading: false,
-    loggedIn: false
+    isLoggedIn: false
   },
   food: {
     loading: false,

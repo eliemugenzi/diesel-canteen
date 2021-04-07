@@ -22,3 +22,5 @@ export const LOST_SINGLE_FOOD = "LOST_SINGLE_FOOD";
 export const PLACING_ORDER = "PLACING_ORDER";
 export const PLACED_ORDER = "PLACED_ORDER";
 export const PLACE_ORDER_FAIL = "PLACE_ORDER_FAIL";
+
+export const LOG_OUT = "LOG_OUT";

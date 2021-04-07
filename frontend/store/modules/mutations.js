@@ -19,7 +19,8 @@ import {
   LOST_SINGLE_FOOD,
   PLACING_ORDER,
   PLACED_ORDER,
-  PLACE_ORDER_FAIL
+  PLACE_ORDER_FAIL,
+  LOG_OUT
 } from "./mutation-types";
 
 export default {
@@ -210,6 +211,15 @@ export default {
       data: {},
       message: null,
       error: payload
+    };
+  },
+  [LOG_OUT]: state => {
+    state.user = {
+      ...state.user,
+      loading: false,
+      data: {},
+      error: null,
+      isLoggedIn: false
     };
   }
 };
