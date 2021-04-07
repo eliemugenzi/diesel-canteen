@@ -17,8 +17,14 @@
         </a-menu>
       </a-dropdown>
       <div class="menu-list" v-else>
-        <a-button @click="$router.push('/')">Login</a-button>
-        <a-button type="primary" @click="$router.push('/signup')" class="button"
+        <a-button
+          @click="$router.push('/')"
+          :class="`${$route.name === 'index' ? 'button' : 'button__inactive'}`"
+          >Login</a-button
+        >
+        <a-button
+          @click="$router.push('/signup')"
+          :class="`${$route.name === 'signup' ? 'button' : 'button__inactive'}`"
           >Sign Up</a-button
         >
       </div>
@@ -65,5 +71,11 @@ main {
 
 .button {
   background: #0a4d98;
+  color: white;
+}
+
+.button__inactive {
+  background: transparent;
+  color: #0a4d98;
 }
 </style>
