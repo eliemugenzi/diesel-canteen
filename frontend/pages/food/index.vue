@@ -37,14 +37,15 @@
       <a-icon v-if="gettingDrinks" type="loading"></a-icon>
       <a-row v-else :gutter="16">
         <a-col v-for="food in drinkList" :key="food._id" :span="4">
-          <nuxt-link :to="`/food/${food._id}`"></nuxt-link>
-          <food
-            :name="food.name"
-            :image="food.image"
-            :price="food.price"
-            :quantity="food.quantity"
-            @click="selected(food)"
-          />
+          <nuxt-link :to="`/food/${food._id}`">
+            <food
+              :name="food.name"
+              :image="food.image"
+              :price="food.price"
+              :quantity="food.quantity"
+              @click="selected(food)"
+            />
+          </nuxt-link>
         </a-col>
       </a-row>
     </div>
