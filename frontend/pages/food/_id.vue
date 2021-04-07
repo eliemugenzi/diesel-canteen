@@ -92,7 +92,7 @@ export default {
 
 <style scoped>
 .food-wrapper {
-  display: flex;
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
 
