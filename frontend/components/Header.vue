@@ -12,7 +12,7 @@
         </a>
         <a-menu slot="overlay">
           <a-menu-item>
-            <a href="javascript:;">Log Out</a>
+            <a href="javascript:;" @click="handleLogOut">Log Out</a>
           </a-menu-item>
         </a-menu>
       </a-dropdown>
@@ -27,11 +27,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Header",
   computed: {
     ...mapGetters(["isLoggedIn", "currentUser"])
+  },
+  methods: {
+    handleLogOut() {
+      this.logOut();
+    },
+    ...mapActions(["logOut"])
   }
 };
 </script>
