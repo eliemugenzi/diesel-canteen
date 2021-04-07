@@ -89,6 +89,9 @@ export default {
   },
   computed: {
     ...mapGetters(["creatingAcc", "signUpError"])
+  },
+  mounted() {
+    console.log(this.$route.name);
   }
 };
 </script>
