@@ -102,6 +102,7 @@ export default {
 
 .useless {
   align-self: center;
+  margin-left: 30px;
 }
 
 .button {
