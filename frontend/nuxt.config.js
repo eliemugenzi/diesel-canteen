@@ -27,7 +27,8 @@ export default {
     "@/plugins/antd-ui",
     "@/plugins/composition-api",
     "@/plugins/vuex",
-    "@/plugins/vuex-persist"
+    "@/plugins/vuex-persist",
+    "@/plugins/vue-lazyload"
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

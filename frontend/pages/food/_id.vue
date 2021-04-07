@@ -23,7 +23,7 @@
     ></a-alert>
     <a-icon v-if="fetchingFood" type="loading"></a-icon>
     <div class="food-wrapper" v-else>
-      <img :src="singleFood.image" alt="" />
+      <img :src="singleFood.image" alt="" class="food-image" />
       <div class="useless">
         <h2>{{ singleFood.name }}</h2>
         <p>{{ singleFood.description }}</p>
@@ -107,6 +107,10 @@ export default {
 
 .button {
   background: #0a4d98;
+}
+
+.food-image {
+  width: 50%;
 }
 
 .error-message {

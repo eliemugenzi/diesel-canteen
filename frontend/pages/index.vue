@@ -56,13 +56,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loggingIn", "loginData", "loginError"])
+    ...mapGetters(["loggingIn", "loginData", "loginError", "isLoggedIn"])
   },
   methods: {
     ...mapActions(["login"]),
     handleSubmit() {
       const payload = this.state;
       this.login({ data: payload, context: this });
+    }
+  },
+  beforeMount() {
+    if (this.isLoggedIn) {
+      this.$router.push("/food");
     }
   }
 };
