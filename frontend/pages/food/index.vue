@@ -12,7 +12,12 @@
             {{ location }}
             <a-icon type="down" />
           </a>
-          <a-menu slot="overlay">
+          
+                      <a-menu slot="overlay">
+                        <a-menu-item @click="switchLocation('All')">
+              <a href="javascript:;">All</a>
+            </a-menu-item>
+
             <a-menu-item @click="switchLocation('Gishushu Canteen')">
               <a href="javascript:;">Gishushu Canteen</a>
             </a-menu-item>
@@ -125,7 +130,21 @@ export default {
     },
     switchLocation(location) {
       this.location = location;
-      this.filterFood({ location });
+       if (location === "All") {
+      this.getFoods({
+      type: "food"
+    });
+
+    this.getFoods({
+      type: "drinks"
+    });
+    }
+    else {
+
+       this.filterFood({ location });
+
+    }
+     
     }
   },
   mounted() {
@@ -145,7 +164,7 @@ export default {
   data() {
     return {
       query: null,
-      location: "Gishushu Canteen"
+      location: "All"
     };
   }
 };
