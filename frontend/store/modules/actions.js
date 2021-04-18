@@ -24,7 +24,8 @@ import {
   SEARCHING,
   SEARCH_FAILED,
   SEARCH_DONE,
-  SEARCH_CLEAR
+  SEARCH_CLEAR,
+  CLEAR_ORDER
 } from "./mutation-types";
 import axios from "../../config/axios";
 import {
@@ -101,15 +102,24 @@ export default {
       commit(LOST_SINGLE_FOOD, error?.response?.data?.message);
     }
   },
-  async placeOrder({ commit }, { data, id }) {
+  async placeOrder({ commit }, { data, id, context }) {
     commit(PLACING_ORDER);
 
     try {
       const { data: response } = await axios.post(`/food/${id}/order`, data);
 
       commit(PLACED_ORDER, response);
+      context.$notification.success({
+        message: "Success",
+        description: "Order has been placed"
+      });
     } catch (error) {
       commit(PLACE_ORDER_FAIL, error?.response?.data?.message);
+
+      context.$notification.error({
+        message: "Error",
+        description: error?.response?.data?.message
+      });
     }
   },
   logOut({ commit },{context}) {
@@ -142,5 +152,8 @@ export default {
     } catch (error) {
       commit(SEARCH_FAILED, error?.response?.data?.message);
     }
+  },
+  clearOrder({ commit }) {
+    commit(CLEAR_ORDER);
   }
 };

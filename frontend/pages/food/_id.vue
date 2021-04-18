@@ -62,13 +62,14 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["getSingleFood", "placeOrder"]),
+    ...mapActions(["getSingleFood", "placeOrder", "clearOrder"]),
     handleSubmit() {
       store.dispatch("placeOrder", {
         id: this.$route.params.id,
         data: {
           quantity: this.quantity
-        }
+        },
+        context: this
       });
     }
   },
@@ -86,6 +87,9 @@ export default {
     return {
       quantity: 1
     };
+  },
+  beforeMount() {
+    this.clearOrder();
   }
 };
 </script>
