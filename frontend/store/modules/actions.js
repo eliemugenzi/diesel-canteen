@@ -112,8 +112,10 @@ export default {
       commit(PLACE_ORDER_FAIL, error?.response?.data?.message);
     }
   },
-  logOut({ commit }) {
+  logOut({ commit },{context}) {
+    console.log(context)
     commit(LOG_OUT);
+    context.$router.push("/")
   },
   async searchFood({ commit }, { query }) {
     commit(SEARCHING);

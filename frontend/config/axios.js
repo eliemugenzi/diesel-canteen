@@ -1,4 +1,6 @@
 import axios from "axios";
+// contains ajax
+// Back end and front edn combinationo
 
 const api = axios.create({
   baseURL: "http://localhost:9000/api",

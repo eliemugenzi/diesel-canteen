@@ -1,9 +1,9 @@
 {
   "name": "diesel-canteen",
   "version": "1.0.0",
-  "description": "Diesel Canteen Web",
+  "description": "Auca Canteen Web",
   "main": "index.js",
-  "author": "Elie Mugenzi, MBE",
+  "author": "Jack nshimiyimana, MBE",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
