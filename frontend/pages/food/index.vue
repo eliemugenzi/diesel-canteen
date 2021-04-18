@@ -1,7 +1,27 @@
 <template>
   <main>
     <div class="search-bar">
-      <h2>Stock</h2>
+      <div class="filter-wrapper">
+        <h2>Stock</h2>
+        <a-dropdown class="filter-drop">
+          <a
+            href="javascript:;"
+            class="a-dropdown-link"
+            @click="e => e.preventDefault()"
+          >
+            {{ location }}
+            <a-icon type="down" />
+          </a>
+          <a-menu slot="overlay">
+            <a-menu-item @click="switchLocation('Gishushu Canteen')">
+              <a href="javascript:;">Gishushu Canteen</a>
+            </a-menu-item>
+            <a-menu-item @click="switchLocation('Masoro Canteen')">
+              <a href="javascript:;">Masoro Canteen</a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </div>
       <div class="search-wrapper">
         <a-input-search
           placeholder="Search"
@@ -96,12 +116,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getFoods", "searchFood"]),
+    ...mapActions(["getFoods", "searchFood", "filterFood"]),
     selected(food) {
       this.$router.push(`/food/${food._id}`);
     },
     handleType(q) {
       this.searchFood({ query: this.query });
+    },
+    switchLocation(location) {
+      this.location = location;
+      this.filterFood({ location });
     }
   },
   mounted() {
@@ -120,7 +144,8 @@ export default {
 
   data() {
     return {
-      query: null
+      query: null,
+      location: "Gishushu Canteen"
     };
   }
 };
@@ -145,5 +170,15 @@ export default {
 .food-list,
 .drinks-list {
   margin: 30px 10%;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter-drop {
+  margin-left: 80px;
+  margin-top: 5px;
 }
 </style>

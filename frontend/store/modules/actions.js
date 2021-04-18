@@ -28,6 +28,7 @@ import {
 } from "./mutation-types";
 import axios from "../../config/axios";
 import {
+  filterFood,
   placeOrder,
   searchFood
 } from "../../../src/resources/food/food.controller";
@@ -127,5 +128,17 @@ export default {
   },
   clearSearch({ commit }) {
     commit(SEARCH_CLEAR);
+  },
+  async filterFood({ commit }, { location }) {
+    commit(SEARCHING);
+    try {
+      const { data: response } = await axios.get(
+        `/food/filter?location=${location}`
+      );
+      commit(GOT_FOOD, response?.data?.foods);
+      commit(GOT_DRINKS, response?.data?.drinks);
+    } catch (error) {
+      commit(SEARCH_FAILED, error?.response?.data?.message);
+    }
   }
 };
