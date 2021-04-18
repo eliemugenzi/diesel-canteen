@@ -32,6 +32,8 @@ const login = asyncHandler(async (req, res) => {
     });
   }
 
+  const isAdmin = !!admin;
+
   const userData = {
     ..._user._doc,
     password: undefined,
@@ -50,6 +52,7 @@ const login = asyncHandler(async (req, res) => {
     data: {
       ...userData,
       token,
+      is_admin: isAdmin,
     },
   });
 });
@@ -95,6 +98,7 @@ const signUp = asyncHandler(async (req, res) => {
     data: {
       ...user._doc,
       token,
+      is_admin: body.type === "admin",
     },
   });
 });
