@@ -20,10 +20,17 @@ import {
   PLACING_ORDER,
   PLACE_ORDER_FAIL,
   PLACED_ORDER,
-  LOG_OUT
+  LOG_OUT,
+  SEARCHING,
+  SEARCH_FAILED,
+  SEARCH_DONE,
+  SEARCH_CLEAR
 } from "./mutation-types";
 import axios from "../../config/axios";
-import { placeOrder } from "../../../src/resources/food/food.controller";
+import {
+  placeOrder,
+  searchFood
+} from "../../../src/resources/food/food.controller";
 export default {
   async login({ commit }, { data, context }) {
     commit(LOGGING_IN);
@@ -106,5 +113,19 @@ export default {
   },
   logOut({ commit }) {
     commit(LOG_OUT);
+  },
+  async searchFood({ commit }, { query }) {
+    commit(SEARCHING);
+
+    try {
+      const { data: response } = await axios.get(`/food/search?q=${query}`);
+      commit(GOT_FOOD, response?.data?.food);
+      commit(GOT_DRINKS, response?.data?.drinks);
+    } catch (error) {
+      commit(SEARCH_FAILED, error?.response?.data?.message);
+    }
+  },
+  clearSearch({ commit }) {
+    commit(SEARCH_CLEAR);
   }
 };

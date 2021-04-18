@@ -19,5 +19,8 @@ export default {
   food404: state => state.singleFood.error,
   placing: state => state.placeOrder.loading,
   placed: state => state.placeOrder.message,
-  placeFailed: state => state.placeOrder.error
+  placeFailed: state => state.placeOrder.error,
+  searching: state => state.search.loading,
+  searchData: state => state.search.data,
+  searchError: state => state.search.error
 };

@@ -42,5 +42,15 @@ export default {
     error: null,
     message: null,
     loading: false
+  },
+  search: {
+    data: [],
+    loading: false,
+    error: null
+  },
+  filter: {
+    data: [],
+    loading: false,
+    error: null
   }
 };

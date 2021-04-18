@@ -20,7 +20,11 @@ import {
   PLACING_ORDER,
   PLACED_ORDER,
   PLACE_ORDER_FAIL,
-  LOG_OUT
+  LOG_OUT,
+  SEARCHING,
+  SEARCH_DONE,
+  SEARCH_FAILED,
+  SEARCH_CLEAR
 } from "./mutation-types";
 
 export default {
@@ -220,6 +224,40 @@ export default {
       data: {},
       error: null,
       isLoggedIn: false
+    };
+  },
+  [SEARCHING]: state => {
+    console.log("SEARCHING");
+    state.search = {
+      ...state.search,
+      data: [],
+      loading: true,
+      error: null
+    };
+  },
+  [SEARCH_DONE]: (state, payload) => {
+    console.log("SEARCH_DONE");
+    state.search = {
+      ...state.search,
+      data: payload,
+      loading: false,
+      error: null
+    };
+  },
+  [SEARCH_FAILED]: (state, payload) => {
+    state.search = {
+      ...state.search,
+      data: [],
+      loading: false,
+      error: payload
+    };
+  },
+  [SEARCH_CLEAR]: state => {
+    state.search = {
+      ...state.search,
+      loading: false,
+      data: [],
+      error: null
     };
   }
 };

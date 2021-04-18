@@ -24,3 +24,12 @@ export const PLACED_ORDER = "PLACED_ORDER";
 export const PLACE_ORDER_FAIL = "PLACE_ORDER_FAIL";
 
 export const LOG_OUT = "LOG_OUT";
+
+export const SEARCHING = "SEARCHING";
+export const SEARCH_DONE = "SEARCH_DONE";
+export const SEARCH_FAILED = "SEARCH_DONE";
+export const SEARCH_CLEAR = "SEARCH_CLEAR";
+
+export const FILTERING = "FILTERING";
+export const FILTER_DONE = "FILTER_DONE";
+export const FILTER_CLEAR = "FILTER_CLEAR";
