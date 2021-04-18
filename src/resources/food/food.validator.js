@@ -26,6 +26,12 @@ module.exports.orderFoodRule = celebrate({
 
 module.exports.searchRule = celebrate({
   query: Joi.object().keys({
-    q: Joi.string().required(),
+    q: Joi.string().min(1).required(),
+  }),
+});
+
+module.exports.filterRule = celebrate({
+  query: Joi.object().keys({
+    location: Joi.string().min(1).required(),
   }),
 });

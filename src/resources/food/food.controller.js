@@ -148,3 +148,47 @@ module.exports.searchFood = asyncHandler(async (req, res) => {
     },
   });
 });
+
+module.exports.filterFood = asyncHandler(async (req, res) => {
+  const { location } = req.query;
+
+  const foods = await Food.find({
+    quantity: {
+      $gte: 1,
+    },
+  })
+    .populate({
+      path: "location",
+      match: {
+        name: {
+          $regex: location,
+          $options: "i",
+        },
+      },
+    })
+    .exec();
+  const drinks = await Drink.find({
+    quantity: {
+      $gte: 1,
+    },
+  })
+    .populate({
+      path: "location",
+      match: {
+        name: {
+          $regex: location,
+          $options: "i",
+        },
+      },
+    })
+    .exec();
+
+  return jsonResponse({
+    res,
+    status: 200,
+    data: {
+      foods: foods.filter((f) => f.location !== null),
+      drinks: drinks.filter((d) => d.location !== null),
+    },
+  });
+});
