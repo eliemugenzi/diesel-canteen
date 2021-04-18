@@ -3,7 +3,13 @@
     <div class="search-bar">
       <h2>Stock</h2>
       <div class="search-wrapper">
-        <a-input-search placeholder="Search"> </a-input-search>
+        <a-input-search
+          placeholder="Search"
+          v-model="query"
+          @change="v => handleType(v)"
+        >
+        </a-input-search>
+
         <a-button
           type="primary"
           class="add-item"
@@ -12,7 +18,24 @@
         >
       </div>
     </div>
-    <div class="food-list">
+    <div class="search-results" v-if="searchData.length !== 0">
+      <h3>Search Results</h3>
+      <a-icon type="loading" v-if="searching"></a-icon>
+      <a-row v-else :gutter="16">
+        <a-col v-for="food in searchData" :key="food._id" :span="4">
+          <nuxt-link :to="`/food/${food._id}`">
+            <food
+              :name="food.name"
+              :image="food.image"
+              :price="food.price"
+              :quantity="food.quantity"
+              @click="selected(food)"
+            />
+          </nuxt-link>
+        </a-col>
+      </a-row>
+    </div>
+    <div class="food-list" v-if="searchData.length === 0">
       <h3>Food</h3>
       <a-empty v-if="!gettingFood && foodList.length === 0"></a-empty>
       <a-icon type="loading" v-if="gettingFood"></a-icon>
@@ -30,7 +53,7 @@
         </a-col>
       </a-row>
     </div>
-    <div class="drinks-list">
+    <div class="drinks-list" v-if="searchData.length === 0">
       <h3>Drinks</h3>
 
       <a-empty v-if="!gettingDrinks && drinkList.length === 0"></a-empty>
@@ -62,7 +85,9 @@ export default {
       "foodList",
       "drinkList",
       "gettingFood",
-      "gettingDrinks"
+      "gettingDrinks",
+      "searchData",
+      "searching"
     ])
   },
   beforeMount() {
@@ -71,9 +96,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getFoods"]),
+    ...mapActions(["getFoods", "searchFood"]),
     selected(food) {
       this.$router.push(`/food/${food._id}`);
+    },
+    handleType(q) {
+      this.searchFood({ query: this.query });
     }
   },
   mounted() {
@@ -84,9 +112,16 @@ export default {
     this.getFoods({
       type: "drinks"
     });
+    console.log({ searchData: this.searchData });
   },
   components: {
     Food
+  },
+
+  data() {
+    return {
+      query: null
+    };
   }
 };
 </script>

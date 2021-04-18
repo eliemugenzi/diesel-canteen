@@ -1,6 +1,6 @@
 const { Joi, celebrate } = require("celebrate");
 
-const newFoodRule = celebrate({
+module.exports.newFoodRule = celebrate({
   body: Joi.object().keys({
     type: Joi.string().valid("food", "drink").required(),
     name: Joi.string().required(),
@@ -12,20 +12,20 @@ const newFoodRule = celebrate({
   }),
 });
 
-const getFoodRule = celebrate({
+module.exports.getFoodRule = celebrate({
   query: Joi.object().keys({
     type: Joi.string().valid("food", "drinks").required(),
   }),
 });
 
-const orderFoodRule = celebrate({
+module.exports.orderFoodRule = celebrate({
   body: Joi.object().keys({
     quantity: Joi.number().integer().min(1).required(),
   }),
 });
 
-module.exports = {
-  newFoodRule,
-  getFoodRule,
-  orderFoodRule,
-};
+module.exports.searchRule = celebrate({
+  query: Joi.object().keys({
+    q: Joi.string().required(),
+  }),
+});

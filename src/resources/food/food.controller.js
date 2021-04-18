@@ -3,7 +3,7 @@ const { Admin, Food, Drink, Location } = require("../../database/models");
 
 const jsonResponse = require("../../helpers/jsonResponse");
 
-const addFood = asyncHandler(async (req, res) => {
+module.exports.addFood = asyncHandler(async (req, res) => {
   const { currentUser, body } = req;
   const foundAdmin = await Admin.findById(currentUser._id);
 
@@ -46,7 +46,7 @@ const addFood = asyncHandler(async (req, res) => {
   });
 });
 
-const getFood = asyncHandler(async (req, res) => {
+module.exports.getFood = asyncHandler(async (req, res) => {
   const { query } = req;
 
   const Model = query.type === "food" ? Food : Drink;
@@ -64,7 +64,7 @@ const getFood = asyncHandler(async (req, res) => {
   });
 });
 
-const getSingleFood = asyncHandler(async (req, res) => {
+module.exports.getSingleFood = asyncHandler(async (req, res) => {
   const { params } = req;
 
   const foundFood = await Food.findById(params.id);
@@ -87,7 +87,7 @@ const getSingleFood = asyncHandler(async (req, res) => {
   });
 });
 
-const placeOrder = asyncHandler(async (req, res) => {
+module.exports.placeOrder = asyncHandler(async (req, res) => {
   const { params, body } = req;
 
   const foundFood = await Food.findById(params.id);
@@ -122,9 +122,29 @@ const placeOrder = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = {
-  addFood,
-  getFood,
-  getSingleFood,
-  placeOrder,
-};
+module.exports.searchFood = asyncHandler(async (req, res) => {
+  const { q } = req.query;
+
+  const foods = await Food.find({
+    name: {
+      $regex: q,
+      $options: "i",
+    },
+  });
+
+  const drinks = await Drink.find({
+    name: {
+      $regex: q,
+      $options: "i",
+    },
+  });
+
+  return jsonResponse({
+    res,
+    status: 200,
+    data: {
+      food: foods,
+      drinks: drinks,
+    },
+  });
+});
