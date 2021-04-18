@@ -33,3 +33,4 @@ export const SEARCH_CLEAR = "SEARCH_CLEAR";
 export const FILTERING = "FILTERING";
 export const FILTER_DONE = "FILTER_DONE";
 export const FILTER_CLEAR = "FILTER_CLEAR";
+export const CLEAR_ORDER = "CLEAR_ORDER";

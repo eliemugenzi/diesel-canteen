@@ -24,7 +24,8 @@ import {
   SEARCHING,
   SEARCH_DONE,
   SEARCH_FAILED,
-  SEARCH_CLEAR
+  SEARCH_CLEAR,
+  CLEAR_ORDER
 } from "./mutation-types";
 
 export default {
@@ -257,6 +258,15 @@ export default {
       ...state.search,
       loading: false,
       data: [],
+      error: null
+    };
+  },
+  [CLEAR_ORDER]: state => {
+    state.placeOrder = {
+      ...state.placeOrder,
+      data: {},
+      loading: false,
+      message: null,
       error: null
     };
   }
